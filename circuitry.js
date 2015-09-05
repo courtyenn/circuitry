@@ -15,4 +15,16 @@ var drawCircle = function(x, y, radius, color, lineWidth){
 	context.restore();
 };
 
-drawCircle(300, 300, 200, '#668');
+var drawLine = function(x1, y1, x2, y2, color, lineWidth){
+	context.save();
+	context.strokeStyle = color || '#f00';
+	context.lineWidth = lineWidth || 1;
+	context.beginPath();
+	context.moveTo(x1, y1);
+	context.lineTo(x2, y2);
+	context.stroke();
+	context.restore();
+};
+
+drawCircle(300, 300, 200, '#668', 10);
+drawLine(500, 100, 100, 500, '#668', 10);
