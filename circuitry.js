@@ -1,10 +1,25 @@
-var canvas = document.getElementById('canvas');
-var context = canvas.getContext('2d');
 var pi = Math.PI;
 var tau = pi * 2;
 var deg = tau / 360;
 
-var drawCircle = function(x, y, radius, color, lineWidth){
+var Circuitry = function(args){
+	this.wireCount = args.wireCount;
+	this.startPoint = args.startPoint;
+	this.endPoint = args.endPoint;
+	this.wireSpacing = args.wireSpacing;
+	this.context = args.targetCanvas.getContext('2d');
+	this.wireList = [];
+
+	for(var i = 0; i < this.wireCount; i++){
+		this.wireList.push(new Wire({
+			segmentCount: 2,
+			startPoint: this.startPoint
+		}));
+	}
+};
+
+Circuitry.prototype.drawCircle = function(x, y, radius, color, lineWidth){
+	var context = this.context;
 	context.save();
 	context.translate(x, y);
 	context.strokeStyle = color || '#f00';
@@ -14,8 +29,8 @@ var drawCircle = function(x, y, radius, color, lineWidth){
 	context.stroke();
 	context.restore();
 };
-
-var drawLine = function(x1, y1, x2, y2, color, lineWidth){
+Circuitry.prototype.drawLine = function(x1, y1, x2, y2, color, lineWidth){
+	var context = this.context;
 	context.save();
 	context.strokeStyle = color || '#f00';
 	context.lineWidth = lineWidth || 1;
@@ -25,6 +40,20 @@ var drawLine = function(x1, y1, x2, y2, color, lineWidth){
 	context.stroke();
 	context.restore();
 };
-
-drawCircle(300, 300, 200, '#668', 10);
-drawLine(500, 100, 100, 500, '#668', 10);
+Circuitry.prototype.draw = function(){
+	var circuitry = this;
+	circuitry.wireList.forEach(function(wire){
+		var lastVert = wire.startPoint;
+		circuitry.drawCircle(lastVert.x, lastVert.y, 10);
+		wire.vertList.forEach(function(vert){
+			circuitry.drawLine(
+				lastVert.x,
+				lastVert.y,
+				vert.x,
+				vert.y
+			);
+			lastVert = vert;
+		});
+		circuitry.drawCircle(lastVert.x, lastVert.y, 10);
+	});
+};
