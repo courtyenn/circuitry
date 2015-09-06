@@ -6,6 +6,8 @@ var Wire = function(args){
 	var segmentDiff = this.segmentCountMax - this.segmentCountMin;
 	this.segmentCount = this.segmentCountMin + Math.round((Math.random() * segmentDiff));
 	this.angleStop = Math.round(-3 + (Math.random() * 6));
+	this.hue = Math.round(Math.random() * 359);
+	this.color = 'hsl('+this.hue+', 100%, 50%)';
 
 	var lastVert = this.startPoint,
 		vert,

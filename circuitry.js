@@ -8,6 +8,7 @@ var Circuitry = function(args){
 	this.endPoint = args.endPoint;
 	this.wireSpacing = args.wireSpacing;
 	this.context = args.targetCanvas.getContext('2d');
+	this.context.globalCompositeOperation = 'lighter';
 	this.wireList = [];
 
 	for(var i = 0; i < this.wireCount; i++){
@@ -44,16 +45,18 @@ Circuitry.prototype.draw = function(){
 	var circuitry = this;
 	circuitry.wireList.forEach(function(wire){
 		var lastVert = wire.startPoint;
-		circuitry.drawCircle(lastVert.x, lastVert.y, 10);
+		circuitry.drawCircle(lastVert.x, lastVert.y, 10, wire.color, 10);
 		wire.vertList.forEach(function(vert){
 			circuitry.drawLine(
 				lastVert.x,
 				lastVert.y,
 				vert.x,
-				vert.y
+				vert.y,
+				wire.color,
+				3
 			);
 			lastVert = vert;
 		});
-		circuitry.drawCircle(lastVert.x, lastVert.y, 10);
+		circuitry.drawCircle(lastVert.x, lastVert.y, 10, wire.color, 10);
 	});
 };
