@@ -6,7 +6,7 @@ var Node = function(args){
    this.y = args.y || 0;
 };
 
-Node.prototype.getVect = function(){
+Node.prototype.getVert = function(){
    return {x: this.x, y: this.y};
 };
 Node.prototype.getRadius = function(){
