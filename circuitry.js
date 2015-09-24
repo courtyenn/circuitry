@@ -41,6 +41,21 @@ Circuitry.prototype.drawLine = function(x1, y1, x2, y2, color, lineWidth){
 	context.stroke();
 	context.restore();
 };
+Circuitry.prototype.drawWires = function(vertList, startVert, wireColor){
+	var circuitry = this;
+	var lastVert = startVert;
+	vertList.forEach(function(vert){
+		circuitry.drawLine(
+			lastVert.x,
+			lastVert.y,
+			vert.x,
+			vert.y,
+			wireColor,
+			3
+		);
+		lastVert = vert;
+	});
+};
 Circuitry.prototype.draw = function(){
 	var circuitry = this;
 	circuitry.wireList.forEach(function(wire){
@@ -58,5 +73,16 @@ Circuitry.prototype.draw = function(){
 			lastVert = vert;
 		});
 		circuitry.drawCircle(lastVert.x, lastVert.y, 10, wire.color, 10);
+	});
+};
+Circuitry.prototype.drawRandomStart = function(){
+	var circuitry = this;
+	var startPoint = {};
+	circuitry.wireList.forEach(function(wire){
+		startPoint.x = circuitry.startPoint.x + Math.round(circuitry.wireSpacing * (Math.random() * 2 - 1));
+		startPoint.y = circuitry.startPoint.y + Math.round(circuitry.wireSpacing * (Math.random() * 2 - 1));
+		console.log(startPoint);
+		circuitry.drawCircle(startPoint.x, startPoint.y, 10, wire.color, 10);
+		circuitry.drawWires(wire.vertList, startPoint, wire.color);
 	});
 };
