@@ -81,7 +81,6 @@ Circuitry.prototype.drawRandomStart = function(){
 	circuitry.wireList.forEach(function(wire){
 		startPoint.x = circuitry.startPoint.x + Math.round(circuitry.wireSpacing * (Math.random() * 2 - 1));
 		startPoint.y = circuitry.startPoint.y + Math.round(circuitry.wireSpacing * (Math.random() * 2 - 1));
-		console.log(startPoint);
 		circuitry.drawCircle(startPoint.x, startPoint.y, 10, wire.color, 10);
 		circuitry.drawWires(wire.vertList, startPoint, wire.color);
 	});

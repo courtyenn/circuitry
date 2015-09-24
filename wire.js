@@ -26,3 +26,6 @@ var Wire = function(args){
 
 Wire.prototype.segmentCountMin = 3;
 Wire.prototype.segmentCountMax = 10;
+Wire.prototype.getVertList = function(){
+	return this.vertList;
+};
