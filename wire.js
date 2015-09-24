@@ -10,16 +10,18 @@ var Wire = function(args){
 	this.color = 'hsl('+this.hue+', 100%, 50%)';
 
 	var lastVert = this.startPoint,
+		previousAngleStop = 0,
 		vert,
 		segment;
 
 	for(var i = 0; i < this.segmentCount; i++){
-		segment = new Segment();
+		segment = new Segment(previousAngleStop);
 		vert = segment.getVert();
 		this.segmentList.push(segment);
 		this.vertList.push(
 			segment.offsetVert(lastVert, vert)
 		);
+		previousAngleStop = segment.angleStop;
 		lastVert = vert;
 	}
 };

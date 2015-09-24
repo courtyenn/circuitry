@@ -1,7 +1,7 @@
-var Segment = function(){
+var Segment = function(previousAngleStop){
 	var lengthDiff = this.lengthMax - this.lengthMin;
 	this.length = this.lengthMin + (Math.random() * lengthDiff);
-	this.angleStop = Math.round(-4 + (Math.random() * 7));
+	this.angleStop = Math.round(-1 + (Math.random() * 2)) + previousAngleStop;
 	this.angle = this.angleStop * 45 * deg;
 };
 
