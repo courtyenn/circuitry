@@ -3,22 +3,17 @@ var tau = pi * 2;
 var deg = tau / 360;
 
 var Circuitry = function(args){
-	this.wireCount = args.wireCount;
-	this.startPoint = args.startPoint;
-	this.endPoint = args.endPoint;
-	this.wireSpacing = args.wireSpacing;
 	this.context = args.targetCanvas.getContext('2d');
 	this.context.globalCompositeOperation = 'lighter';
+
+	this.wireCount = args.wireCount;
+	this.startPoint = args.startPoint;
+	this.patternName = args.patternName || 'random';
+	this.wireSpacing = args.wireSpacing;
 	this.wireList = [];
 	this.nodeList = [];
-
-	for(var i = 0; i < this.wireCount; i++){
-		this.wireList.push(new Wire({
-			segmentCount: 2,
-			startPoint: this.startPoint
-		}));
-	}
 };
+
 Circuitry.prototype.doesNodeConflict = function(node){
 	var circuitry = this;
 	var nodeConflicts = false;
@@ -38,6 +33,18 @@ Circuitry.prototype.doesNodeConflict = function(node){
 	});
 			return nodeConflicts;
 };
+
+Circuitry.prototype.createWire = function(){
+		for(var x = 0; x < this.wireCount; x++){
+			var xposition = Math.round(Math.random() * canvas.width);
+			var wire = new Wire({
+				'startPoint': {x: xposition, y: 0},
+				'patternName': 'upwards'
+			});
+			this.wireList.push(wire);
+		}
+};
+
 Circuitry.prototype.drawCircle = function(x, y, radius, color, lineWidth){
 	var context = this.context;
 	context.save();
@@ -75,6 +82,32 @@ Circuitry.prototype.drawWires = function(vertList, startVert, wireColor){
 		lastVert = vert;
 	});
 };
+
+Circuitry.prototype.drawWire = function(wire){
+	var circuitry = this;
+	var lastVert = wire.startPoint;
+	wire.vertList.forEach(function(vert){
+		circuitry.drawLine(
+			lastVert.x,
+			lastVert.y,
+			vert.x,
+			vert.y,
+			wire.color,
+			3
+		);
+		lastVert = vert;
+	});
+};
+
+Circuitry.prototype.drawPattern = function(){
+	var circuitry = this;
+	var pattern = 'upwards';
+	circuitry.createWire();
+	circuitry.wireList.forEach(function(wire){
+		circuitry.drawWire(wire);
+	});
+};
+
 Circuitry.prototype.draw = function(){
 	var circuitry = this;
 	circuitry.wireList.forEach(function(wire){

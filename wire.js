@@ -1,33 +1,32 @@
-var Wire = function(args){
-
-	this.startPoint = args.startPoint;
-	this.segmentList = [];
-	this.vertList = [];
-	var segmentDiff = this.segmentCountMax - this.segmentCountMin;
-	this.segmentCount = this.segmentCountMin + Math.round((Math.random() * segmentDiff));
-	this.angleStop = Math.round(-3 + (Math.random() * 6));
-	this.hue = Math.round(Math.random() * 359);
-	this.color = 'hsl('+this.hue+', 100%, 50%)';
-
-	var lastVert = this.startPoint,
-		previousAngleStop = 0,
-		vert,
-		segment;
-
-	for(var i = 0; i < this.segmentCount; i++){
-		segment = new Segment(previousAngleStop);
-		vert = segment.getVert();
-		this.segmentList.push(segment);
-		this.vertList.push(
-			segment.offsetVert(lastVert, vert)
-		);
-		previousAngleStop = segment.angleStop;
-		lastVert = vert;
-	}
+var wirePatterns = {
+   "random" : [0, 45, 90, 135, 180, 225, 270, 315, 360],
+   "cornerPattern": [90, 45, 45, 90],
+   "upwards" : [135, 45, 90, 180]
 };
 
-Wire.prototype.segmentCountMin = 3;
-Wire.prototype.segmentCountMax = 10;
-Wire.prototype.getVertList = function(){
-	return this.vertList;
+var Wire = function(args){
+   var wire = this;
+   this.startPoint = args.startPoint;
+   this.patternName = args.patternName;
+   this.segmentCount = 4;
+   this.segmentLength = 30;
+   this.hue = Math.round(Math.random() * 359);
+   this.color = "hsl("+this.hue+", 100%, 50%)";
+   this.vertList = [];
+
+   var lastVert = this.startPoint;
+   for(var x = 0; x < this.segmentCount; x++){
+      var index = x%wire.patternName.length;
+      var xpos =
+      Math.round(Math.cos( (wirePatterns[wire.patternName][index] * (Math.PI/180) ) ) * wire.segmentLength) + lastVert.x;
+      var ypos =
+      Math.round(Math.sin( (wirePatterns[wire.patternName][index] * (Math.PI/180) ) ) * wire.segmentLength) + lastVert.y;
+      wire.vertList.push({x: xpos, y: ypos});
+      lastVert = {x: xpos, y: ypos};
+   }
+   console.log("done:", this.vertList);
+}
+
+Wire.prototype.getVert = function(){
+
 };
