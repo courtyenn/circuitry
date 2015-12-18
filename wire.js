@@ -9,7 +9,7 @@ var Wire = function(args){
    this.startPoint = args.startPoint;
    this.patternName = args.patternName;
    this.segmentCount = 4;
-   this.segmentLength = 30;
+   this.segmentLength = Math.floor(100 * Math.random());
    this.hue = Math.round(Math.random() * 359);
    this.color = "hsl("+this.hue+", 100%, 50%)";
    this.vertList = [];
@@ -24,7 +24,6 @@ var Wire = function(args){
       wire.vertList.push({x: xpos, y: ypos});
       lastVert = {x: xpos, y: ypos};
    }
-   console.log("done:", this.vertList);
 }
 
 Wire.prototype.getVert = function(){
