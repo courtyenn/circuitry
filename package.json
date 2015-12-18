@@ -1,0 +1,28 @@
+{
+  "name": "circuitry",
+  "version": "1.0.0",
+  "description": "circuitry pattern interaction",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-preset-es2015": "^6.1.2",
+    "eslint": "^1.8.0",
+    "gulp-babel": "^6.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-eslint": "^1.0.0",
+    "gulp-sourcemaps": "^1.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/courtneynguyen/circuitry.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/courtneynguyen/circuitry/issues"
+  },
+  "homepage": "https://github.com/courtneynguyen/circuitry#readme"
+}

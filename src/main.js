@@ -1,3 +1,4 @@
+import Circuitry from 'circuitry';
 var canvas = document.getElementById('canvas');
 
 var myCircuitry = new Circuitry({
