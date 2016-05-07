@@ -2,9 +2,10 @@ var canvas = document.getElementById('canvas');
 
 var myCircuitry = new Circuitry({
 	wireCount: 15,
-	startPoint: {x: 300, y: canvas.height},
-	patternName: 'upwards',
-	targetCanvas: canvas
+	startPoint: {x: canvas.width/2, y: canvas.height/2},
+	patternName: 'random',
+	targetCanvas: canvas,
+  wireSpacing: 100
 });
 
-myCircuitry.drawPattern();
+myCircuitry.draw();
