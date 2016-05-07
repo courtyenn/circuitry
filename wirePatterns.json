@@ -1,0 +1,4 @@
+var wirePatterns: {
+  "random" : [0, 45, 90, 135, 180, 225, 270, 315, 360],
+  "cornerPattern": [90, 45, 45, 90]
+};
