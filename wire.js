@@ -1,31 +1,44 @@
-var wirePatterns = {
-   "random" : [0, 45, 90, 135, 180, 225, 270, 315, 360],
-   "cornerPattern": [90, 45, 45, 90],
-   "upwards" : [135, 45, 90, 180]
-};
-
 var Wire = function(args){
-   var wire = this;
-   this.startPoint = args.startPoint;
-   this.patternName = args.patternName;
-   this.segmentCount = 4;
-   this.segmentLength = Math.floor(100 * Math.random());
-   this.hue = Math.round(Math.random() * 359);
-   this.color = "hsl("+this.hue+", 100%, 50%)";
-   this.vertList = [];
+  this.startPoint = args.startPoint;
+  this.patternName = args.patternName;
+  this.segmentCount = 4;
+  this.segmentLength = 30;
+  this.hue = Math.round(Math.random() * 359);
+  this.color = "hsl("+this.hue+", 100%, 50%)";
+  this.vertList = [];
 
-   var lastVert = this.startPoint;
-   for(var x = 0; x < this.segmentCount; x++){
-      var index = x%wire.patternName.length;
+  var wire = this;
+  var lastVert = wire.startPoint;
+  lastVert.previousAngleStop = 0;
+  var vert, segment;
+
+  var patternIsRandom = !wirePatterns || wirePatterns[wire.patternName].length === 0;
+  if(!patternIsRandom){
+    for(var x = 0; x < wire.segmentCount; x++){
       var xpos =
-      Math.round(Math.cos( (wirePatterns[wire.patternName][index] * (Math.PI/180) ) ) * wire.segmentLength) + lastVert.x;
+      Math.round(Math.cos(wirePatterns[wire.patternName][x]) * wire.segmentLength) + lastVert.x;
       var ypos =
-      Math.round(Math.sin( (wirePatterns[wire.patternName][index] * (Math.PI/180) ) ) * wire.segmentLength) + lastVert.y;
+      Math.round(Math.sin(wirePatterns[wire.patternName][x]) * wire.segmentLength) + lastVert.y;
       wire.vertList.push({x: xpos, y: ypos});
       lastVert = {x: xpos, y: ypos};
-   }
+    }
+    console.log("done:", wire.vertList);
+  }
+  else {
+    for(var i = 0; i < wire.segmentCount; i++){
+      segment = new Segment(lastVert.previousAngleStop);
+      vert = segment.getVert();
+      wire.segmentList.push(segment);
+      wire.vertList.push(
+        segment.offsetVert(lastVert, vert)
+      );
+      lastVert = vert;
+    }
+  }
 }
 
-Wire.prototype.getVert = function(){
-
+Wire.prototype.segmentCountMin = 3;
+Wire.prototype.segmentCountMax = 10;
+Wire.prototype.getVertList = function(){
+	return this.vertList;
 };
