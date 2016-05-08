@@ -1,17 +1,22 @@
-var Segment = function(previousAngleStop){
+var Segment = function(patternName){
 	var lengthDiff = this.lengthMax - this.lengthMin;
 	this.length = this.lengthMin + (Math.random() * lengthDiff);
-	this.angleStop = Math.round(-1 + (Math.random() * 2)) + previousAngleStop;
-	this.angle = this.angleStop * 45 * deg;
+  var patternLength = wirePatterns[patternName].length;
+  var randomAngleIndex = Math.abs(Math.round(-1 + (Math.random() * patternLength)));
+	this.angleStop = wirePatterns[patternName][randomAngleIndex];
+	this.angle = this.angleStop;
 };
 
 Segment.prototype.lengthMin = 10;
 Segment.prototype.lengthMax = 100;
 
 Segment.prototype.getVert = function(){
+  var xPos = Math.cos(this.angle) * this.length;
+  var yPos = Math.sin(this.angle) * this.length;
 	return {
-		x: Math.cos(this.angle) * this.length,
-		y: Math.sin(this.angle) * this.length
+		x: xPos,
+		y: yPos,
+    angle: this.angle
 	};
 };
 
