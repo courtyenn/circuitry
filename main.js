@@ -1,5 +1,3 @@
-import './style.css'
-
 const TAU = Math.PI * 2 // 360 degrees, but in radians
 const DEG_45 = TAU / 8 // 45 degrees, but in radians
 const DEG_60 = TAU / 6 // 60 degrees, but in radians
@@ -101,12 +99,12 @@ const youSpinMeRightRound = (timestamp) => {
   context.scale(squareSize / 12, squareSize / 12)  
 
   context.save()
-  // context.rotate(TAU * timestamp / 8000)
+  context.rotate(TAU * timestamp / 8000)
   roboSpider.forEach(drawLeg)
   context.restore()
 
   context.save()
-  // context.rotate(TAU * timestamp / -4000)
+  context.rotate(TAU * timestamp / -4000)
   squareBot.forEach(drawLeg)
   context.restore()
 
