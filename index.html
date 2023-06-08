@@ -1,41 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Circuitry Fun</title>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-		}
-
-		html, body {
-			height: 100%;
-		}
-
-		body {
-			background-color: gray;
-		}
-
-		#canvas {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			margin: auto;
-			box-shadow: 0 0 4px black;
-			background-color:black;
-			/*background-image: url("./transparent.png");*/
-		}
-	</style>
-</head>
-<body>
-<canvas id="canvas" width="600" height="600"></canvas>
-<script src="node.js"></script>
-<script src="segment.js"></script>
-<script src="wire.js"></script>
-<script src="circuitry.js"></script>
-<script src="main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circuitry Fun</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script type="module" src="/main.js"></script>
+  </body>
 </html>
